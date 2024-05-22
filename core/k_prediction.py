@@ -1,6 +1,6 @@
 import joblib
 
-def ph_model(rgb):
+def k_model(rgb):
     model_path = 'models/K_model.pkl'
     model = joblib.load(model_path)
     k = model.predict([rgb])
