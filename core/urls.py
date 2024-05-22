@@ -16,7 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from core.view import pHAPI, pAPI, nAPI, kAPI
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/pHmodel/', pHAPI.as_view(), name='pHmodel'),
+    path('api/kmodel/', kAPI.as_view(), name='kmodel'),
+    path('api/pmodel/', pAPI.as_view(), name='pmodel'),
+    path('api/nmodel/', nAPI.as_view(), name='nmodel'),
 ]
+
