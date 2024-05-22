@@ -2,3 +2,4 @@ tensorflow
 opencv-python
 scikit-learn
 django
+pillow
