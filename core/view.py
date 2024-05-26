@@ -1,4 +1,6 @@
 from django.http import JsonResponse
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from core.ph_prediction import ph_model
 from core.k_prediction import k_model
 from core.n_prediction import n_model
@@ -22,6 +24,7 @@ def handle_uploaded_image(image_file):
     b = average_color [2]
     return r,g,b
 
+@method_decorator(csrf_exempt, name='dispatch')
 class pHAPI(View):
     def post(self, request, *args, **kwargs):
         image_file = request.FILES.get('image', None)
@@ -32,6 +35,7 @@ class pHAPI(View):
             return JsonResponse({'prediction': result}, safe=False)
         return JsonResponse({'error': 'No image provided'}, status=400)
     
+@method_decorator(csrf_exempt, name='dispatch')
 class kAPI(View):
     def post(self, request, *args, **kwargs):
         image_file = request.FILES.get('image', None)
@@ -42,6 +46,7 @@ class kAPI(View):
             return JsonResponse({'prediction': result}, safe=False)
         return JsonResponse({'error': 'No image provided'}, status=400)
     
+@method_decorator(csrf_exempt, name='dispatch')
 class pAPI(View):
     def post(self, request, *args, **kwargs):
         image_file = request.FILES.get('image', None)
@@ -51,7 +56,8 @@ class pAPI(View):
             result = p_model(rgb_data)
             return JsonResponse({'prediction': result}, safe=False)
         return JsonResponse({'error': 'No image provided'}, status=400)
-    
+
+@method_decorator(csrf_exempt, name='dispatch')
 class nAPI(View):
     def post(self, request, *args, **kwargs):
         image_file = request.FILES.get('image', None)
